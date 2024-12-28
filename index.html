@@ -169,7 +169,7 @@
 
 						const vpdFile = vpdFiles[ vpdIndex ];
 
-						loader.loadVPD( vpdFile, function ( vpd ) {
+						loader.loadVPD( vpdFile,false, function ( vpd ) {
 							vpds.push( vpd );
 							vpdIndex ++;
 							if ( vpdIndex < vpdFiles.length ) {
