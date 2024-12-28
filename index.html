@@ -229,21 +229,26 @@
 					const gui = new GUI();
 
 					// ここにPosesのフォルダを作り、vpdsを操作できるようにする
-					const poses = gui.addFolder( 'Poses' );
-					const files = { default: -1 };
-					for ( let i = 0; i < vpds.length; i ++ ) {
-						files[ getBaseName( vpdFiles[ i ] ) ] = i;
-					}
-					poses.add( controls, 'pose', files ).onChange( onChangePose );
+					// const poses = gui.addFolder( 'Poses' );
+					// const files = { default: -1 };
+					// for ( let i = 0; i < vpds.length; i ++ ) {
+					// 	files[ getBaseName( vpdFiles[ i ] ) ] = i;
+					// }
+					// poses.add( controls, 'pose', files ).onChange( onChangePose );
 
-					function onChangePose() {
-						const index = controls.pose;
-						if ( index === -1 ) {
-							mesh.pose();
-						} else {
-							helper.pose( mesh, vpds[ index ] );
-						}
-					}
+					// function onChangePose() {
+					// 	const index = parseInt( controls.pose );
+					// 	if ( index === -1 ) {
+					// 		mesh.pose();
+					// 	} else {
+					// 		helper.pose( mesh, vpds[ index ] );
+					// 	}
+					// }
+					// guiに項目を追加せず、helper.pose()を使ってposeを変更する
+					helper.pose( mesh, vpds[ 0 ] );
+
+
+
 					// webgl-loader-mmdのloadWithAnimation()をload()に変更し、onLoadでinitPoses()を読み込み、そこでonChangePose()を設定した。結局vpdからposeの表示にはhelper( mesh , vpds[index] ):MMDAnimationHelperを使っているようだ
 
 					gui.add( api, 'animation' ).onChange( function () {
