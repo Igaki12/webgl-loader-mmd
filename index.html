@@ -245,7 +245,12 @@
 					// 	}
 					// }
 					// guiに項目を追加せず、helper.pose()を使ってposeを変更する
-					helper.pose( mesh, vpds[ 0 ] );
+					try {
+						console.log( vpds[ 1 ] );
+						helper.pose( mesh, vpds[ 1 ] );
+					} catch ( e ) {
+						console.error( e );
+					}
 
 
 
