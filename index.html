@@ -275,19 +275,20 @@
 				// webgl-loader-mmdのloadWithAnimation()をload()に変更し、onLoadでinitPoses()を読み込み、そこでonChangePose()を設定した。結局vpdからposeの表示にはhelper( mesh , vpds[index] ):MMDAnimationHelperを使っているようだ
 
 				// 最小0, 最大1, 0.01ずつ増減するparametersを作成
-				gui.add( parameters , 'LeftShoulder' , 0.0 , 1.0 , 0.01 ).onChange( function () {
-					const poseX = document.getElementById("poseX").value;
-					const poseY = document.getElementById("poseY").value;
-					const poseZ = document.getElementById("poseZ").value;
-					const poseW = document.getElementById("poseW").value;
-					let new_vpds = vpds[0];
-					new_vpds.bones[17].quaternion[0] = parseFloat(poseX);
-					new_vpds.bones[17].quaternion[1] = parseFloat(poseY);
-					new_vpds.bones[17].quaternion[2] = parseFloat(poseZ);
-					new_vpds.bones[17].quaternion[3] = parseFloat(poseW);
-					helper.pose(mesh, new_vpds);
-					console.log(new_vpds.bones[17]);
-				});
+				// 失敗したので後日再挑戦
+				// gui.add( parameters , 'LeftShoulder' , 0.0 , 1.0 , 0.01 ).onChange( function () {
+				// 	const poseX = document.getElementById("poseX").value;
+				// 	const poseY = document.getElementById("poseY").value;
+				// 	const poseZ = document.getElementById("poseZ").value;
+				// 	const poseW = document.getElementById("poseW").value;
+				// 	let new_vpds = vpds[0];
+				// 	new_vpds.bones[17].quaternion[0] = parseFloat(poseX);
+				// 	new_vpds.bones[17].quaternion[1] = parseFloat(poseY);
+				// 	new_vpds.bones[17].quaternion[2] = parseFloat(poseZ);
+				// 	new_vpds.bones[17].quaternion[3] = parseFloat(poseW);
+				// 	helper.pose(mesh, new_vpds);
+				// 	console.log(new_vpds.bones[17]);
+				// });
 
 				// このposeが押されると、id="poseX"などの値を取得してposeを変更する
 				gui.add(api, 'pose').onChange(function () {
