@@ -17,6 +17,11 @@
 	</head>
 
 	<body>
+		<input type="number" id="poseX">0</input>
+		<input type="number" id="poseY">0</input>
+		<input type="number" id="poseZ">0</input>
+		<input type="number" id="poseW">0</input>
+		<button id="poseSubmit">左肩POSE変更</button>
 		<div id="info">
 		<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MMDLoader test<br />
 		<a href="https://github.com/mrdoob/three.js/tree/master/examples/models/mmd#readme" target="_blank" rel="noopener">MMD Assets license</a><br />
@@ -136,6 +141,7 @@
 				// 	//'models/mmd/vpds/10.vpd',
 				// 	'models/mmd/vpds/11.vpd'
 				// ];
+				// ここの1番目に追加する
 				const vpdFiles = [
 					'three.js-master/examples/models/mmd/vpds/elbow_modified.vpd',
 					'three.js-master/examples/models/mmd/vpds/01.vpd',
@@ -215,6 +221,7 @@
 				function initGui() {
 
 					const api = {
+						'pose': true,
 						'animation': true,
 						'ik': true,
 						'outline': true,
@@ -256,6 +263,17 @@
 
 
 					// webgl-loader-mmdのloadWithAnimation()をload()に変更し、onLoadでinitPoses()を読み込み、そこでonChangePose()を設定した。結局vpdからposeの表示にはhelper( mesh , vpds[index] ):MMDAnimationHelperを使っているようだ
+
+					// このposeが押されると、id="poseX"などの値を取得してposeを変更する
+					gui.add( api, 'pose' ).onChange( function () {
+						const poseX = document.getElementById("poseX").value;
+						const poseY = document.getElementById("poseY").value;
+						const poseZ = document.getElementById("poseZ").value;
+						const poseW = document.getElementById("poseW").value;
+						const new_vpds = vpds[ 0 ];
+						// new_vpdsの86行目を表示する
+						console.log( new_vpds);
+					} );
 
 					gui.add( api, 'animation' ).onChange( function () {
 
