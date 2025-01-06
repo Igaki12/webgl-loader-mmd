@@ -137,6 +137,7 @@
 				// 	'models/mmd/vpds/11.vpd'
 				// ];
 				const vpdFiles = [
+					'three.js-master/examples/models/mmd/vpds/elbow_modified.vpd',
 					'three.js-master/examples/models/mmd/vpds/01.vpd',
 					'three.js-master/examples/models/mmd/vpds/02.vpd',
 					'three.js-master/examples/models/mmd/vpds/03.vpd',
@@ -246,8 +247,8 @@
 					// }
 					// guiに項目を追加せず、helper.pose()を使ってposeを変更する
 					try {
-						console.log( vpds[ 1 ] );
-						helper.pose( mesh, vpds[ 1 ] );
+						console.log( vpds[ 0 ] );
+						helper.pose( mesh, vpds[ 0 ] );
 					} catch ( e ) {
 						console.error( e );
 					}
