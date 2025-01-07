@@ -284,11 +284,11 @@
 						helper.pose(mesh, new_vpds);
 						console.log(new_vpds.bones[poseName]);
 					}
-					document.getElementById("poseName").addEventListener("change", changePose);
-					document.getElementById("poseX").addEventListener("change", changePose);
-					document.getElementById("poseY").addEventListener("change", changePose);
-					document.getElementById("poseZ").addEventListener("change", changePose);
-					document.getElementById("poseW").addEventListener("change", changePose);
+					document.getElementById("poseName").addEventListener("input", changePose);
+					document.getElementById("poseX").addEventListener("input", changePose);
+					document.getElementById("poseY").addEventListener("input", changePose);
+					document.getElementById("poseZ").addEventListener("input", changePose);
+					document.getElementById("poseW").addEventListener("input", changePose);
 				} catch (e) {
 					console.error(e);
 				}
