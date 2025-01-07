@@ -231,7 +231,7 @@
 					'LeftShoulderW': 0.0
 				};
 				const api = {
-					'pose': true,
+					// 'pose': true,
 					'animation': true,
 					'ik': true,
 					'outline': true,
@@ -266,6 +266,30 @@
 				try {
 					console.log(vpds[0]);
 					helper.pose(mesh, vpds[0]);
+					// input群の数値が変更されたときに自動でhelper.pose()を呼び出す
+					function changePose() {
+						const poseName = document.getElementById("poseName").value;
+						if(poseName == "" || isNaN(poseName) == false || poseName < 0 || poseName > 92){
+							console.log("poseNameが不正です : " + poseName);
+							return;
+						}
+						const poseX = document.getElementById("poseX").value;
+						const poseY = document.getElementById("poseY").value;
+						const poseZ = document.getElementById("poseZ").value;
+						const poseW = document.getElementById("poseW").value;
+						let new_vpds = vpds[0];
+						new_vpds.bones[parseInt(poseName)].quaternion[0] = parseFloat(poseX);
+						new_vpds.bones[parseInt(poseName)].quaternion[1] = parseFloat(poseY);
+						new_vpds.bones[parseInt(poseName)].quaternion[2] = parseFloat(poseZ);
+						new_vpds.bones[parseInt(poseName)].quaternion[3] = parseFloat(poseW);
+						helper.pose(mesh, new_vpds);
+						console.log(new_vpds.bones[poseName]);
+					}
+					document.getElementById("poseName").addEventListener("change", changePose);
+					document.getElementById("poseX").addEventListener("change", changePose);
+					document.getElementById("poseY").addEventListener("change", changePose);
+					document.getElementById("poseZ").addEventListener("change", changePose);
+					document.getElementById("poseW").addEventListener("change", changePose);
 				} catch (e) {
 					console.error(e);
 				}
@@ -276,49 +300,36 @@
 
 				// 最小0, 最大1, 0.01ずつ増減するparametersを作成
 				// 失敗したので後日再挑戦
-				// gui.add( parameters , 'LeftShoulder' , 0.0 , 1.0 , 0.01 ).onChange( function () {
+
+				// このposeが押されると、id="poseX"などの値を取得してposeを変更する
+				// gui.add(api, 'pose').onChange(function () {
+				// 	const poseName = document.getElementById("poseName").value;
+				// 	// 0 ~ 92以外の値が入力された場合、0にする
+				// 	if (poseName < 0 || poseName > 92) {
+				// 		consile.log("無効なposeNameが入力されました : " + poseName);
+				// 		poseName = 0;
+				// 	}
+				// 	const poseNameText = document.getElementById("poseNameText");
 				// 	const poseX = document.getElementById("poseX").value;
 				// 	const poseY = document.getElementById("poseY").value;
 				// 	const poseZ = document.getElementById("poseZ").value;
 				// 	const poseW = document.getElementById("poseW").value;
 				// 	let new_vpds = vpds[0];
-				// 	new_vpds.bones[17].quaternion[0] = parseFloat(poseX);
-				// 	new_vpds.bones[17].quaternion[1] = parseFloat(poseY);
-				// 	new_vpds.bones[17].quaternion[2] = parseFloat(poseZ);
-				// 	new_vpds.bones[17].quaternion[3] = parseFloat(poseW);
+				// 	// vodsからposeNameを取得する
+				// 	poseNameText.innerText = new_vpds.bones[parseInt(poseName)].name;
+				// 	// new_vpdsのbone[17] 左肩の値を変更する
+				// 	// {
+				// 	//     "name": "左肩",
+				// 	//     "translation": [0,0,0],
+				// 	//     "quaternion": [0,0,0.661953,0.749545]
+				// 	// }
+				// 	new_vpds.bones[parseInt(poseName)].quaternion[0] = parseFloat(poseX);
+				// 	new_vpds.bones[parseInt(poseName)].quaternion[1] = parseFloat(poseY);
+				// 	new_vpds.bones[parseInt(poseName)].quaternion[2] = parseFloat(poseZ);
+				// 	new_vpds.bones[parseInt(poseName)].quaternion[3] = parseFloat(poseW);
 				// 	helper.pose(mesh, new_vpds);
-				// 	console.log(new_vpds.bones[17]);
+				// 	console.log(new_vpds.bones[poseName]);
 				// });
-
-				// このposeが押されると、id="poseX"などの値を取得してposeを変更する
-				gui.add(api, 'pose').onChange(function () {
-					const poseName = document.getElementById("poseName").value;
-					// 0 ~ 92以外の値が入力された場合、0にする
-					if (poseName < 0 || poseName > 92) {
-						consile.log("無効なposeNameが入力されました : " + poseName);
-						poseName = 0;
-					}
-					const poseNameText = document.getElementById("poseNameText");
-					const poseX = document.getElementById("poseX").value;
-					const poseY = document.getElementById("poseY").value;
-					const poseZ = document.getElementById("poseZ").value;
-					const poseW = document.getElementById("poseW").value;
-					let new_vpds = vpds[0];
-					// vodsからposeNameを取得する
-					poseNameText.innerText = new_vpds.bones[parseInt(poseName)].name;
-					// new_vpdsのbone[17] 左肩の値を変更する
-					// {
-					//     "name": "左肩",
-					//     "translation": [0,0,0],
-					//     "quaternion": [0,0,0.661953,0.749545]
-					// }
-					new_vpds.bones[parseInt(poseName)].quaternion[0] = parseFloat(poseX);
-					new_vpds.bones[parseInt(poseName)].quaternion[1] = parseFloat(poseY);
-					new_vpds.bones[parseInt(poseName)].quaternion[2] = parseFloat(poseZ);
-					new_vpds.bones[parseInt(poseName)].quaternion[3] = parseFloat(poseW);
-					helper.pose(mesh, new_vpds);
-					console.log(new_vpds.bones[poseName]);
-				});
 
 				gui.add(api, 'animation').onChange(function () {
 
