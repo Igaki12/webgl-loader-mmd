@@ -269,10 +269,20 @@
 					function changePose() {
 						const poseName = document.getElementById("poseName").value;
 						// poseNameが2桁の整数でない場合
-						if(poseName == "" || isFinite(poseName) == false || parseInt(poseName) < 0 || parseInt(poseName) > 92){
-							console.log("poseNameが不正です : " + poseName);
+						try {
+							const poseNameInt = parseInt(poseName);
+							if (poseNameInt < 0 || poseNameInt > 92) {
+								console.log("無効なposeNameが入力されました : " + poseName);
+								document.getElementById("poseName").value = 0;
+								return;
+							}
+						} catch (e) {
+							console.error(e);
+							console.log("無効なposeNameが入力されました : " + poseName);
+							document.getElementById("poseName").value = 0;
 							return;
 						}
+
 						const poseX = document.getElementById("poseX").value;
 						const poseY = document.getElementById("poseY").value;
 						const poseZ = document.getElementById("poseZ").value;
