@@ -303,7 +303,12 @@
 					document.getElementById("poseZ").addEventListener("input", changePose);
 					document.getElementById("poseW").addEventListener("input", changePose);
 					document.getElementById("resetPose").addEventListener("click", function () {
-						new_vpds = vpds[0];
+						for(let i = 0; i < new_vpds.bones.length; i++) {
+							new_vpds.bones[i].quaternion[0] = 0;
+							new_vpds.bones[i].quaternion[1] = 0;
+							new_vpds.bones[i].quaternion[2] = 0;
+							new_vpds.bones[i].quaternion[3] = 1;
+						}
 						document.getElementById("poseName").value = 17;
 						document.getElementById("poseX").value = 0;
 						document.getElementById("poseY").value = 0;
