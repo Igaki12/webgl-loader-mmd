@@ -268,7 +268,8 @@
 					// input群の数値が変更されたときに自動でhelper.pose()を呼び出す
 					function changePose() {
 						const poseName = document.getElementById("poseName").value;
-						if(poseName == "" || isNaN(poseName) == false || poseName < 0 || poseName > 92){
+						// poseNameが2桁の整数でない場合
+						if(poseName == "" || isFinite(poseName) == false || parseInt(poseName) < 0 || parseInt(poseName) > 92){
 							console.log("poseNameが不正です : " + poseName);
 							return;
 						}
