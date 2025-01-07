@@ -24,7 +24,8 @@
 		<input type="number" id="poseX" value="0" step="0.1" /><br>
 		<input type="number" id="poseY" value="0" step="0.1" /><br>
 		<input type="number" id="poseZ" value="0" step="0.1" /><br>
-		<input type="number" id="poseW" value="0" step="0.1" /><br>
+		<input type="number" id="poseW" value="1" step="0.1" /><br>
+		<button id="resetPose">Reset Pose</button>
 		<a href="https://threejs.org" target="_blank" rel="noopener">three.js</a> - MMDLoader test<br />
 		<a href="https://github.com/mrdoob/three.js/tree/master/examples/models/mmd#readme" target="_blank"
 			rel="noopener">MMD Assets license</a><br />
@@ -62,6 +63,7 @@
 
 		let mesh, helper, ikHelper, physicsHelper;
 		let camera, scene, renderer, effect;
+		let new_vpds;
 
 		const clock = new THREE.Clock();
 
@@ -146,18 +148,16 @@
 			// ];
 			// ここの1番目に追加する
 			const vpdFiles = [
-				'three.js-master/examples/models/mmd/vpds/elbow_modified.vpd',
-				'three.js-master/examples/models/mmd/vpds/01.vpd',
-				'three.js-master/examples/models/mmd/vpds/02.vpd',
-				'three.js-master/examples/models/mmd/vpds/03.vpd',
-				'three.js-master/examples/models/mmd/vpds/04.vpd',
-				'three.js-master/examples/models/mmd/vpds/05.vpd',
-				'three.js-master/examples/models/mmd/vpds/06.vpd',
-				'three.js-master/examples/models/mmd/vpds/07.vpd',
-				'three.js-master/examples/models/mmd/vpds/08.vpd',
-				//'models/mmd/vpds/09.vpd',
-				//'models/mmd/vpds/10.vpd',
-				'three.js-master/examples/models/mmd/vpds/11.vpd'
+				'three.js-master/examples/models/mmd/vpds/default.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/01.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/02.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/03.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/04.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/05.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/06.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/07.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/08.vpd',
+				// 'three.js-master/examples/models/mmd/vpds/11.vpd'
 			]
 
 			helper = new MMDAnimationHelper({
@@ -287,7 +287,7 @@
 						const poseY = document.getElementById("poseY").value;
 						const poseZ = document.getElementById("poseZ").value;
 						const poseW = document.getElementById("poseW").value;
-						let new_vpds = vpds[0];
+						new_vpds = vpds[0];
 						new_vpds.bones[parseInt(poseName)].quaternion[0] = parseFloat(poseX);
 						new_vpds.bones[parseInt(poseName)].quaternion[1] = parseFloat(poseY);
 						new_vpds.bones[parseInt(poseName)].quaternion[2] = parseFloat(poseZ);
@@ -302,6 +302,15 @@
 					document.getElementById("poseY").addEventListener("input", changePose);
 					document.getElementById("poseZ").addEventListener("input", changePose);
 					document.getElementById("poseW").addEventListener("input", changePose);
+					document.getElementById("resetPose").addEventListener("click", function () {
+						new_vpds = vpds[0];
+						document.getElementById("poseName").value = 17;
+						document.getElementById("poseX").value = 0;
+						document.getElementById("poseY").value = 0;
+						document.getElementById("poseZ").value = 0;
+						document.getElementById("poseW").value = 1;
+						changePose();
+					});
 				} catch (e) {
 					console.error(e);
 				}
