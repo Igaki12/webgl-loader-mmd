@@ -292,6 +292,8 @@
 						new_vpds.bones[parseInt(poseName)].quaternion[1] = parseFloat(poseY);
 						new_vpds.bones[parseInt(poseName)].quaternion[2] = parseFloat(poseZ);
 						new_vpds.bones[parseInt(poseName)].quaternion[3] = parseFloat(poseW);
+						// poseNameTextを更新
+						document.getElementById("poseNameText").innerText = new_vpds.bones[parseInt(poseName)].name;
 						helper.pose(mesh, new_vpds);
 						console.log(new_vpds.bones[poseName]);
 					}
